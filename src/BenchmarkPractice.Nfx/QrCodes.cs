@@ -11,22 +11,15 @@ namespace BenchmarkPractice.Nfx
 {
     public class QrCodes
     {
-        [Benchmark]
-        public void YlQrCode()
-        {
-            var text = nameof(QrCodes);
+        private static string ylfolders = Path.Combine(Environment.CurrentDirectory, "outputs", "yl");
+        private static string netfolders = Path.Combine(Environment.CurrentDirectory, "outputs", "net");
 
-            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-            {
-                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.L))
-                {
-                    using (QRCode qrcode = new QRCode(qrCodeData))
-                    {
-                        var b = qrcode.GetGraphic(20, Color.Black, Color.White, null, 15, 6, false);
-                        b.Save(Path.Combine(Environment.CurrentDirectory, "outputs", "yl", $"{DateTime.Now.ToString("mmssms")}.jpg"), ImageFormat.Jpeg);
-                    }
-                }
-            }
+        public static void Init()
+        {
+            if (!Directory.Exists(ylfolders))
+                Directory.CreateDirectory(ylfolders);
+            if (!Directory.Exists(netfolders))
+                Directory.CreateDirectory(netfolders);
         }
 
         [Benchmark]
@@ -45,7 +38,25 @@ namespace BenchmarkPractice.Nfx
             {
                 render.WriteToStream(code.Matrix, ImageFormat.Jpeg, ms);
                 var img = Image.FromStream(ms);
-                img.Save(Path.Combine(Environment.CurrentDirectory, "outputs", "net", $"{DateTime.Now.ToString("mmssms")}.jpg"), ImageFormat.Jpeg);
+                //img.Save(Path.Combine(netfolders, $"{DateTime.Now.ToString("mmssms")}.jpg"), ImageFormat.Jpeg);
+            }
+        }
+
+        [Benchmark]
+        public void YlQrCode()
+        {
+            var text = nameof(QrCodes);
+
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.L))
+                {
+                    using (QRCode qrcode = new QRCode(qrCodeData))
+                    {
+                        var b = qrcode.GetGraphic(20, Color.Black, Color.White, null, 15, 6, false);
+                        //b.Save(Path.Combine(ylfolders, $"{DateTime.Now.ToString("mmssms")}.jpg"), ImageFormat.Jpeg);
+                    }
+                }
             }
         }
     }
