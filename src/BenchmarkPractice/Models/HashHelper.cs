@@ -8,11 +8,6 @@ namespace BenchmarkPractice.Models
     {
         public static string GetMD5(string input)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
             using (var md5 = MD5.Create())
             {
                 var buffer = Encoding.UTF8.GetBytes(input);
@@ -23,11 +18,6 @@ namespace BenchmarkPractice.Models
 
         public static string GetSHA1(string input)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
             using (var sha1 = SHA1.Create())
             {
                 var buffer = Encoding.UTF8.GetBytes(input);

@@ -3,18 +3,18 @@ using BenchmarkPractice.Models;
 
 namespace BenchmarkPractice
 {
-    public class TestContext
+    public class Md5VsSha1
     {
         [Benchmark]
         public void TestMD5()
         {
-            HashHelper.GetMD5("https://www.baidu.com/img/bd_logo1.png");
+            HashHelper.GetMD5(nameof(Md5VsSha1));
         }
 
         [Benchmark]
         public void TestSHA1()
         {
-            HashHelper.GetSHA1("https://www.baidu.com/img/bd_logo1.png");
+            HashHelper.GetSHA1(nameof(Md5VsSha1));
         }
     }
 }
