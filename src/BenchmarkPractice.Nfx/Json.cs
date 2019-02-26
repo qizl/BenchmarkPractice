@@ -36,7 +36,7 @@ namespace BenchmarkPractice.Nfx
         [Benchmark]
         public void JsonNetDeserializeObject()
         {
-            JsonConvert.DeserializeObject(_json);
+            JsonConvert.DeserializeObject<List<Obj>>(_json);
         }
 
         [Benchmark]
