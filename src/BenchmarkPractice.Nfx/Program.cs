@@ -7,10 +7,20 @@ namespace BenchmarkPractice.Nfx
     {
         static void Main(string[] args)
         {
-            QrCodes.Init();
+            runJson();
 
-            var summary = BenchmarkRunner.Run<QrCodes>();
             Console.ReadLine();
+        }
+
+        static void runQrCodes()
+        {
+            QrCodes.Init();
+            BenchmarkRunner.Run<QrCodes>();
+        }
+
+        static void runJson()
+        {
+            BenchmarkRunner.Run<Json>();
         }
     }
 }
