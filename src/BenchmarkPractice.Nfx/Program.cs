@@ -7,7 +7,7 @@ namespace BenchmarkPractice.Nfx
     {
         static void Main(string[] args)
         {
-            runJson();
+            runTryCatch();
 
             Console.ReadLine();
         }
@@ -21,6 +21,11 @@ namespace BenchmarkPractice.Nfx
         static void runJson()
         {
             BenchmarkRunner.Run<Json>();
+        }
+
+        static void runTryCatch()
+        {
+            BenchmarkRunner.Run<TryCatch>();
         }
     }
 }
