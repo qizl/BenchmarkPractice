@@ -7,7 +7,7 @@ namespace BenchmarkPractice.Nfx
     {
         static void Main(string[] args)
         {
-            runTryCatch();
+            runOrm();
 
             Console.ReadLine();
         }
@@ -26,6 +26,11 @@ namespace BenchmarkPractice.Nfx
         static void runTryCatch()
         {
             BenchmarkRunner.Run<TryCatch>();
+        }
+
+        static void runOrm()
+        {
+            BenchmarkRunner.Run<Orm>();
         }
     }
 }
