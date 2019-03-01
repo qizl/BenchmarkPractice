@@ -6,20 +6,38 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using ZXing;
 
 namespace BenchmarkPractice.Nfx
 {
     public class QrCodes
     {
         private static string ylfolders = Path.Combine(Environment.CurrentDirectory, "outputs", "yl");
-        private static string netfolders = Path.Combine(Environment.CurrentDirectory, "outputs", "net");
+        private static string qrCodeNetfolders = Path.Combine(Environment.CurrentDirectory, "outputs", "qrcodenet");
+        private static string zxingNetfolders = Path.Combine(Environment.CurrentDirectory, "outputs", "zxingnet");
 
         public static void Init()
         {
-            if (!Directory.Exists(ylfolders))
-                Directory.CreateDirectory(ylfolders);
-            if (!Directory.Exists(netfolders))
-                Directory.CreateDirectory(netfolders);
+            if (!Directory.Exists(zxingNetfolders)) Directory.CreateDirectory(zxingNetfolders);
+            if (!Directory.Exists(qrCodeNetfolders)) Directory.CreateDirectory(qrCodeNetfolders);
+            if (!Directory.Exists(ylfolders)) Directory.CreateDirectory(ylfolders);
+        }
+
+        [Benchmark]
+        public void ZXingNet()
+        {
+            var text = nameof(ZXingNet);
+
+            var barCodeWriter = new BarcodeWriter();
+            barCodeWriter.Format = BarcodeFormat.QR_CODE;
+            barCodeWriter.Options.Hints.Add(EncodeHintType.CHARACTER_SET, "UTF-8");
+            barCodeWriter.Options.Hints.Add(EncodeHintType.ERROR_CORRECTION, ZXing.QrCode.Internal.ErrorCorrectionLevel.H);
+            barCodeWriter.Options.Height = 100;
+            barCodeWriter.Options.Width = 100;
+            barCodeWriter.Options.Margin = 0;
+            var bm = barCodeWriter.Encode(text);
+            var b = barCodeWriter.Write(bm);
+            //b.Save(Path.Combine(zxingNetfolders, $"{DateTime.Now.ToString("mmssms")}.jpg"), ImageFormat.Jpeg);
         }
 
         [Benchmark]

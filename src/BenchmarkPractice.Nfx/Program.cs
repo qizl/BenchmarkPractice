@@ -7,7 +7,7 @@ namespace BenchmarkPractice.Nfx
     {
         static void Main(string[] args)
         {
-            runOrm();
+            runQrCodes();
 
             Console.ReadLine();
         }
